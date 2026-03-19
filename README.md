@@ -1,6 +1,6 @@
 # Intel 8086 ile Mikroişlemci Programlamaya Giriş
 
-**Yazarlar:** Şadi Çağatay Öztürk ve Dr. Oğuz Ergin
+**Yazarlar:** Şadi Çağatay Öztürk ve Prof. Dr. Oğuz Ergin
 
 ## Kitap Hakkında
 
@@ -33,4 +33,4 @@ Kitabın güncel PDF sürümüne bu depodaki [ana-kitap.pdf](ana-kitap.pdf) dosy
 
 ## Lisans
 
-Tüm hakları saklıdır. © 2009 Şadi Çağatay Öztürk ve Dr. Oğuz Ergin
+Tüm hakları saklıdır. © 2009 Şadi Çağatay Öztürk ve Prof. Dr. Oğuz Ergin
