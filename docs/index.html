@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intel 8086 ile Mikroişlemci Programlamaya Giriş</title>
+    <meta name="description" content="Intel 8086 ile Mikroişlemci Programlamaya Giriş — Şadi Çağatay Öztürk ve Prof. Dr. Oğuz Ergin. Açık erişimli Türkçe ders kitabı.">
+    <style>
+        :root {
+            --primary: #1a365d;
+            --accent: #2b6cb0;
+            --accent-light: #bee3f8;
+            --bg: #f7fafc;
+            --card-bg: #ffffff;
+            --text: #2d3748;
+            --text-light: #718096;
+            --success: #38a169;
+            --success-bg: #f0fff4;
+            --success-border: #68d391;
+            --warning: #d69e2e;
+            --warning-bg: #fffff0;
+            --warning-border: #f6e05e;
+            --border: #e2e8f0;
+            --accordion-expanded-bg: #ebf8ff;
+            --alpha-bg: #fff8e1;
+            --alpha-border: #f59e0b;
+            --alpha-text: #92400e;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.6;
+        }
+
+        /* Alpha warning banner */
+        .alpha-banner {
+            background: var(--alpha-bg);
+            border-bottom: 3px solid var(--alpha-border);
+            padding: 0.85rem 1rem;
+            text-align: center;
+        }
+        .alpha-banner-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            font-size: 0.9rem;
+            color: var(--alpha-text);
+            font-weight: 500;
+        }
+        .alpha-banner-inner strong { font-weight: 700; }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+        @media (min-width: 768px) {
+            .hero-content {
+                flex-direction: row;
+                text-align: left;
+            }
+        }
+        .hero-cover {
+            width: 180px;
+            flex-shrink: 0;
+            border-radius: 8px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+        }
+        .hero h1 {
+            font-size: 1.85rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .hero .subtitle {
+            font-size: 1.05rem;
+            opacity: 0.9;
+            margin-bottom: 0.25rem;
+        }
+        .hero .author {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+        }
+        .hero .badges {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+        @media (min-width: 768px) {
+            .hero .badges { justify-content: flex-start; }
+        }
+        @media (max-width: 767px) {
+            .hero .badges { justify-content: center; }
+        }
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .badge-version { background: rgba(255,255,255,0.2); }
+        .badge-license { background: rgba(255,255,255,0.15); }
+        .badge-isbn { background: rgba(255,255,255,0.15); }
+        .badge-alpha {
+            background: rgba(245, 158, 11, 0.35);
+            border: 1px solid rgba(245, 158, 11, 0.6);
+        }
+
+        /* CTA Buttons */
+        .cta-buttons {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        @media (max-width: 767px) {
+            .cta-buttons { justify-content: center; }
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .btn-primary {
+            background: white;
+            color: var(--primary);
+        }
+        .btn-secondary {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        /* Main content */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* Section */
+        section {
+            margin-bottom: 2.5rem;
+        }
+        section h2 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-light);
+        }
+        section p {
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        /* Alpha warning box inside content */
+        .alpha-box {
+            background: var(--alpha-bg);
+            border: 2px solid var(--alpha-border);
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--alpha-text);
+        }
+        .alpha-box h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .alpha-box p {
+            font-size: 0.9rem;
+            margin: 0;
+            color: var(--alpha-text);
+        }
+
+        /* Info cards */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+        @media (min-width: 600px) {
+            .info-grid { grid-template-columns: 1fr 1fr; }
+        }
+        .info-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+        }
+        .info-card h3 {
+            font-size: 1rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        .info-card p, .info-card a {
+            font-size: 0.9rem;
+        }
+        .info-card a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        .info-card a:hover { text-decoration: underline; }
+
+        /* Citation */
+        .citation-block {
+            background: #edf2f7;
+            border-left: 4px solid var(--accent);
+            padding: 1rem 1.25rem;
+            border-radius: 0 6px 6px 0;
+            font-size: 0.85rem;
+            overflow-x: auto;
+        }
+        .citation-block pre {
+            margin: 0;
+            font-family: 'Fira Code', 'Consolas', monospace;
+            white-space: pre-wrap;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            color: var(--text-light);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+        }
+        footer a { color: var(--accent); text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        /* Accordion */
+        .accordion {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .accordion-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            border-left-width: 4px;
+        }
+        .accordion-item.status-ready {
+            border-left-color: var(--success);
+        }
+        .accordion-item.status-wip {
+            border-left-color: var(--warning);
+        }
+        .accordion-item.status-alpha {
+            border-left-color: var(--alpha-border);
+        }
+
+        .accordion-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.85rem 1rem;
+            cursor: pointer;
+            user-select: none;
+            gap: 0.75rem;
+            background: var(--card-bg);
+            transition: background 0.15s;
+        }
+        .accordion-header:hover {
+            background: #f0f4f8;
+        }
+        .accordion-item.open .accordion-header {
+            background: #dbeafe;
+        }
+
+        .accordion-left {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .acc-number {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-light);
+            white-space: nowrap;
+            min-width: 3.5rem;
+        }
+
+        .acc-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .accordion-right {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            flex-shrink: 0;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+        .status-badge.ready {
+            background: var(--success-bg);
+            color: var(--success);
+            border: 1px solid var(--success-border);
+        }
+        .status-badge.wip {
+            background: var(--warning-bg);
+            color: var(--warning);
+            border: 1px solid var(--warning-border);
+        }
+        .status-badge.alpha {
+            background: var(--alpha-bg);
+            color: var(--alpha-text);
+            border: 1px solid var(--alpha-border);
+        }
+
+        .chevron {
+            font-size: 0.7rem;
+            color: var(--text-light);
+            transition: transform 0.25s ease;
+            display: inline-block;
+        }
+        .accordion-item.open .chevron {
+            transform: rotate(90deg);
+        }
+
+        .accordion-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .accordion-item.open .accordion-body {
+            max-height: 800px;
+        }
+
+        .accordion-content {
+            padding: 1rem 1rem 1.25rem 1rem;
+            background: var(--accordion-expanded-bg);
+            border-top: 1px solid #bee3f8;
+        }
+
+        .acc-wip-msg {
+            font-size: 0.88rem;
+            color: var(--text-light);
+            font-style: italic;
+            padding: 0.25rem 0;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Alfa Uyarı Bandı -->
+<div class="alpha-banner">
+    <div class="alpha-banner-inner">
+        <strong>&#9888; ALFA SURUMU:</strong> Bu kitap henuz tamamlanmamistir. Icerigi degisime aciktir. Ders kitabi olarak kullanima uygun degildir.
+    </div>
+</div>
+
+<!-- Hero -->
+<div class="hero">
+    <div class="hero-content">
+        <img src="kapak.jpg" alt="Kitap Kapagi" class="hero-cover"
+             onerror="this.style.display='none'">
+        <div>
+            <h1>Intel 8086 ile Mikroislemci Programlamaya Giris</h1>
+            <div class="author">Sadi Cagatay Ozturk ve Prof. Dr. Oguz Ergin</div>
+            <div class="badges">
+                <span class="badge badge-alpha">&#9888; Alfa Surumu</span>
+                <span class="badge badge-version">v0.0.1</span>
+                <span class="badge badge-license">CC BY-NC-ND 4.0</span>
+                <span class="badge badge-isbn">ISBN: basvuru surecinde</span>
+                <span class="badge badge-version">322 sayfa</span>
+                <span class="badge badge-version">2026</span>
+            </div>
+            <div class="cta-buttons">
+                <a href="https://github.com/prof-oguzergin/mikroislemciler/releases/latest/download/ana-kitap.pdf" class="btn btn-primary">
+                    &#x1F4E5; PDF Indir (v0.0.1)
+                </a>
+                <a href="https://github.com/prof-oguzergin/mikroislemciler" class="btn btn-secondary">
+                    &#x1F4C2; GitHub
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+    <!-- Alfa Uyari Kutusu -->
+    <div class="alpha-box">
+        <h3>&#9888; Bu Kitap Alfa Surumumdedir</h3>
+        <p>Bu kitap henuz tamamlanmamistir ve aktif gelistirme asamasindadir. Alfa surumu olup ders kitabi olarak kullanilmaya uygun degildir. Icerik degisime aciktir. Duzeltme ve geri bildirimleriniz icin: <a href="mailto:oergin@sharjah.ac.ae" style="color: var(--alpha-text); font-weight:600;">oergin@sharjah.ac.ae</a></p>
+    </div>
+
+    <!-- Hakkinda -->
+    <section>
+        <h2>Hakkinda</h2>
+        <p>
+            Bu kitap, Intel 8086 mikroislemcisi uzerinden cevirici dili (assembly language) programlamayi
+            ogretmek amaciyla hazirlanmistir. Bilgisayar muhendisligi ve elektrik-elektronik muhendisligi
+            lisans ogrencilerine yoneliktir.
+        </p>
+        <p>
+            Mikroislemci mimarisi, sayi sistemleri, komut kumesi ve sistem programlama konularini kapsamaktadir.
+            Kitap sure guncellenmekte olup hata bildirimleri memnuniyetle karsilanir.
+        </p>
+    </section>
+
+    <!-- Icindekiler -->
+    <section>
+        <h2>Icindekiler</h2>
+
+        <div class="accordion" id="toc-accordion">
+
+            <!-- Bolum 1 -->
+            <div class="accordion-item status-alpha" data-index="0">
+                <div class="accordion-header" onclick="toggleAccordion(0)">
+                    <div class="accordion-left">
+                        <span class="acc-number">Bolum 1</span>
+                        <span class="acc-title">Bilgisayar Sistemlerine Giris</span>
+                    </div>
+                    <div class="accordion-right">
+                        <span class="status-badge alpha">Alfa</span>
+                        <span class="chevron">&#9658;</span>
+                    </div>
+                </div>
+                <div class="accordion-body">
+                    <div class="accordion-content">
+                        <p class="acc-wip-msg">Temel bilgisayar mimarisi, von Neumann modeli, islemci ve bellek yapisi, yazilim katmanlari.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bolum 2 -->
+            <div class="accordion-item status-alpha" data-index="1">
+                <div class="accordion-header" onclick="toggleAccordion(1)">
+                    <div class="accordion-left">
+                        <span class="acc-number">Bolum 2</span>
+                        <span class="acc-title">Sayi Sistemleri</span>
+                    </div>
+                    <div class="accordion-right">
+                        <span class="status-badge alpha">Alfa</span>
+                        <span class="chevron">&#9658;</span>
+                    </div>
+                </div>
+                <div class="accordion-body">
+                    <div class="accordion-content">
+                        <p class="acc-wip-msg">Ikilik, sekizlik, onaltilik taban; isaretli sayilar; BCD; ASCII; IEEE 754 kayan nokta.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bolum 3 -->
+            <div class="accordion-item status-alpha" data-index="2">
+                <div class="accordion-header" onclick="toggleAccordion(2)">
+                    <div class="accordion-left">
+                        <span class="acc-number">Bolum 3</span>
+                        <span class="acc-title">8086 Mimarisi</span>
+                    </div>
+                    <div class="accordion-right">
+                        <span class="status-badge alpha">Alfa</span>
+                        <span class="chevron">&#9658;</span>
+                    </div>
+                </div>
+                <div class="accordion-body">
+                    <div class="accordion-content">
+                        <p class="acc-wip-msg">8086 ic yapisi, yazmaclar, segmentli bellek modeli, adres uzayi, BIU ve EU.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bolum 4 -->
+            <div class="accordion-item status-alpha" data-index="3">
+                <div class="accordion-header" onclick="toggleAccordion(3)">
+                    <div class="accordion-left">
+                        <span class="acc-number">Bolum 4</span>
+                        <span class="acc-title">Cevirici Diline Giris</span>
+                    </div>
+                    <div class="accordion-right">
+                        <span class="status-badge alpha">Alfa</span>
+                        <span class="chevron">&#9658;</span>
+                    </div>
+                </div>
+                <div class="accordion-body">
+                    <div class="accordion-content">
+                        <p class="acc-wip-msg">Assembly soz dizimi, program yapisi, FASM/NASM kullanimi, ilk program, derleme ve calistirma.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bolum 5 -->
+            <div class="accordion-item status-alpha" data-index="4">
+                <div class="accordion-header" onclick="toggleAccordion(4)">
+                    <div class="accordion-left">
+                        <span class="acc-number">Bolum 5</span>
+                        <span class="acc-title">Veri Tasima Komutlari</span>
+                    </div>
+                    <div class="accordion-right">
+                        <span class="status-badge alpha">Alfa</span>
+                        <span class="chevron">&#9658;</span>
+                    </div>
+                </div>
+                <div class="accordion-body">
+                    <div class="accordion-content">
+                        <p class="acc-wip-msg">MOV, PUSH, POP, XCHG, LEA, XLAT komutlari; adresleme kipleri.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bolum 6 -->
+            <div class="accordion-item status-alpha" data-index="5">
+                <div class="accordion-header" onclick="toggleAccordion(5)">
+                    <div class="accordion-left">
+                        <span class="acc-number">Bolum 6</span>
+                        <span class="acc-title">Aritmetik ve Mantik Komutlari</span>
+                    </div>
+                    <div class="accordion-right">
+                        <span class="status-badge alpha">Alfa</span>
+                        <span class="chevron">&#9658;</span>
+                    </div>
+                </div>
+                <div class="accordion-body">
+                    <div class="accordion-content">
+                        <p class="acc-wip-msg">ADD, SUB, MUL, DIV, AND, OR, XOR, NOT, isaret bayraklari.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bolum 7 -->
+            <div class="accordion-item status-alpha" data-index="6">
+                <div class="accordion-header" onclick="toggleAccordion(6)">
+                    <div class="accordion-left">
+                        <span class="acc-number">Bolum 7</span>
+                        <span class="acc-title">Denetim Komutlari</span>
+                    </div>
+                    <div class="accordion-right">
+                        <span class="status-badge alpha">Alfa</span>
+                        <span class="chevron">&#9658;</span>
+                    </div>
+                </div>
+                <div class="accordion-body">
+                    <div class="accordion-content">
+                        <p class="acc-wip-msg">JMP, CALL, RET, kosullu atlamalar, dongu komutlari (LOOP), altprogramlar.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bolum 8 -->
+            <div class="accordion-item status-alpha" data-index="7">
+                <div class="accordion-header" onclick="toggleAccordion(7)">
+                    <div class="accordion-left">
+                        <span class="acc-number">Bolum 8</span>
+                        <span class="acc-title">Dizgi Isleme Komutlari</span>
+                    </div>
+                    <div class="accordion-right">
+                        <span class="status-badge alpha">Alfa</span>
+                        <span class="chevron">&#9658;</span>
+                    </div>
+                </div>
+                <div class="accordion-body">
+                    <div class="accordion-content">
+                        <p class="acc-wip-msg">MOVS, CMPS, SCAS, LODS, STOS komutlari; REP oneki; blok islemler.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bolum 9 -->
+            <div class="accordion-item status-alpha" data-index="8">
+                <div class="accordion-header" onclick="toggleAccordion(8)">
+                    <div class="accordion-left">
+                        <span class="acc-number">Bolum 9</span>
+                        <span class="acc-title">Kesmeler ve Cevre Birimlerinin Kullanimi</span>
+                    </div>
+                    <div class="accordion-right">
+                        <span class="status-badge alpha">Alfa</span>
+                        <span class="chevron">&#9658;</span>
+                    </div>
+                </div>
+                <div class="accordion-body">
+                    <div class="accordion-content">
+                        <p class="acc-wip-msg">Donanim ve yazilim kesmeleri, INT komutu, kesme vektoru tablosu, cevre birimi elestirilmesi.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bolum 10 -->
+            <div class="accordion-item status-alpha" data-index="9">
+                <div class="accordion-header" onclick="toggleAccordion(9)">
+                    <div class="accordion-left">
+                        <span class="acc-number">Bolum 10</span>
+                        <span class="acc-title">Girdi/Cikti Islemleri</span>
+                    </div>
+                    <div class="accordion-right">
+                        <span class="status-badge alpha">Alfa</span>
+                        <span class="chevron">&#9658;</span>
+                    </div>
+                </div>
+                <div class="accordion-body">
+                    <div class="accordion-content">
+                        <p class="acc-wip-msg">IN/OUT komutlari, port adresleme, klavye ve ekran G/C, DOS sistem cagrilari.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bolum 11 -->
+            <div class="accordion-item status-alpha" data-index="10">
+                <div class="accordion-header" onclick="toggleAccordion(10)">
+                    <div class="accordion-left">
+                        <span class="acc-number">Bolum 11</span>
+                        <span class="acc-title">Basit Bir Isletim Sistemi</span>
+                    </div>
+                    <div class="accordion-right">
+                        <span class="status-badge alpha">Alfa</span>
+                        <span class="chevron">&#9658;</span>
+                    </div>
+                </div>
+                <div class="accordion-body">
+                    <div class="accordion-content">
+                        <p class="acc-wip-msg">Baslangic kodu, bellek yonetimi, gorev anahtarlama, basit isletim sistemi tasarimi.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ek A -->
+            <div class="accordion-item status-alpha" data-index="11">
+                <div class="accordion-header" onclick="toggleAccordion(11)">
+                    <div class="accordion-left">
+                        <span class="acc-number">Ek A</span>
+                        <span class="acc-title">x86 Komutlarinin Listesi</span>
+                    </div>
+                    <div class="accordion-right">
+                        <span class="status-badge alpha">Alfa</span>
+                        <span class="chevron">&#9658;</span>
+                    </div>
+                </div>
+                <div class="accordion-body">
+                    <div class="accordion-content">
+                        <p class="acc-wip-msg">Tam 8086/8088 komut kumesi referans tablosu, islem kodlari, bayrak etkileri.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ek B -->
+            <div class="accordion-item status-alpha" data-index="12">
+                <div class="accordion-header" onclick="toggleAccordion(12)">
+                    <div class="accordion-left">
+                        <span class="acc-number">Ek B</span>
+                        <span class="acc-title">Derleme Araclari (FASM/NASM)</span>
+                    </div>
+                    <div class="accordion-right">
+                        <span class="status-badge alpha">Alfa</span>
+                        <span class="chevron">&#9658;</span>
+                    </div>
+                </div>
+                <div class="accordion-body">
+                    <div class="accordion-content">
+                        <p class="acc-wip-msg">FASM ve NASM kurulumu, temel kullanim, soz dizimi farkliliklari, hata ayiklama ipuclari.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ek C -->
+            <div class="accordion-item status-alpha" data-index="13">
+                <div class="accordion-header" onclick="toggleAccordion(13)">
+                    <div class="accordion-left">
+                        <span class="acc-number">Ek C</span>
+                        <span class="acc-title">DOS ve Linux Kesmeleri</span>
+                    </div>
+                    <div class="accordion-right">
+                        <span class="status-badge alpha">Alfa</span>
+                        <span class="chevron">&#9658;</span>
+                    </div>
+                </div>
+                <div class="accordion-body">
+                    <div class="accordion-content">
+                        <p class="acc-wip-msg">INT 21h DOS servisleri, Linux sistem cagrisi tablosu, yaygin kullanim ornekleri.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ek D -->
+            <div class="accordion-item status-alpha" data-index="14">
+                <div class="accordion-header" onclick="toggleAccordion(14)">
+                    <div class="accordion-left">
+                        <span class="acc-number">Ek D</span>
+                        <span class="acc-title">BIOS Kesmeleri</span>
+                    </div>
+                    <div class="accordion-right">
+                        <span class="status-badge alpha">Alfa</span>
+                        <span class="chevron">&#9658;</span>
+                    </div>
+                </div>
+                <div class="accordion-body">
+                    <div class="accordion-content">
+                        <p class="acc-wip-msg">BIOS kesme vektoru tablosu, video (INT 10h), klavye (INT 16h), disk (INT 13h) servisleri.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ek E -->
+            <div class="accordion-item status-alpha" data-index="15">
+                <div class="accordion-header" onclick="toggleAccordion(15)">
+                    <div class="accordion-left">
+                        <span class="acc-number">Ek E</span>
+                        <span class="acc-title">ASCII Kodlari ve Klavye Tarama Kodlari</span>
+                    </div>
+                    <div class="accordion-right">
+                        <span class="status-badge alpha">Alfa</span>
+                        <span class="chevron">&#9658;</span>
+                    </div>
+                </div>
+                <div class="accordion-body">
+                    <div class="accordion-content">
+                        <p class="acc-wip-msg">Tam ASCII karakter tablosu, klavye tarama (scan) kodlari, genis karakter seti.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /.accordion -->
+    </section>
+
+    <!-- Kaynaklar -->
+    <section>
+        <h2>Kaynaklar</h2>
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>&#x1F4E5; PDF Indir</h3>
+                <p>Kitabin guncel alfa surmunu dogrudan indirin.</p>
+                <a href="https://github.com/prof-oguzergin/mikroislemciler/releases/latest/download/ana-kitap.pdf">
+                    Son surum (PDF) &rarr;
+                </a>
+            </div>
+            <div class="info-card">
+                <h3>&#x1F4C2; Kaynak Kod</h3>
+                <p>LaTeX kaynak dosyalari ve derleme talimatlari.</p>
+                <a href="https://github.com/prof-oguzergin/mikroislemciler">
+                    GitHub &rarr;
+                </a>
+            </div>
+            <div class="info-card">
+                <h3>&#x1F41B; Hata Bildirimi</h3>
+                <p>Kitapta hata buldunuz mu? Bize bildirin.</p>
+                <a href="https://github.com/prof-oguzergin/mikroislemciler/issues">
+                    GitHub Issues &rarr;
+                </a>
+            </div>
+            <div class="info-card">
+                <h3>&#x2709; Geri Bildirim</h3>
+                <p>Duzeltme ve icerik onerileri icin e-posta gonderin.</p>
+                <a href="mailto:oergin@sharjah.ac.ae">
+                    oergin@sharjah.ac.ae &rarr;
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lisans -->
+    <section>
+        <h2>Lisans</h2>
+        <p>
+            Bu eser <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons
+            Atif-GayriTicari-Tureyemez 4.0 Uluslararasi</a> lisansi ile lisanslanmistir.
+            Ozgurce paylasilabilir ve dagitilabilir &mdash; uygun atif yapilmasi,
+            ticari amacla kullanilmamasi ve degisiklik yapilmamasi kosuluyla.
+        </p>
+    </section>
+
+</div>
+
+<footer>
+    &copy; 2026 Sadi Cagatay Ozturk ve Prof. Dr. Oguz Ergin &mdash;
+    <a href="mailto:oergin@sharjah.ac.ae">oergin@sharjah.ac.ae</a> &mdash;
+    <a href="https://github.com/prof-oguzergin/mikroislemciler">GitHub</a>
+</footer>
+
+<script>
+    function toggleAccordion(index) {
+        var items = document.querySelectorAll('.accordion-item');
+        var item = items[index];
+        var isOpen = item.classList.contains('open');
+
+        // Close all
+        items.forEach(function(el) {
+            el.classList.remove('open');
+        });
+
+        // Toggle current
+        if (!isOpen) {
+            item.classList.add('open');
+        }
+    }
+</script>
+
+</body>
+</html>

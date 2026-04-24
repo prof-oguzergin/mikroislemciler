@@ -1,36 +1,50 @@
-# Intel 8086 ile Mikroişlemci Programlamaya Giriş
+# Intel 8086 ile Mikroislemci Programlamaya Giris
 
-**Yazarlar:** Şadi Çağatay Öztürk ve Prof. Dr. Oğuz Ergin
+**Surum 0.0.1 (Alfa) — 2026**
 
-## Kitap Hakkında
+> **UYARI: Bu kitap alfa surumundedir.** Ders kitabi olarak kullanima uygun degildir. Icerik degisime aciktir. Geri bildirim icin: oergin@sharjah.ac.ae
 
-Bu kitap, Intel 8086 mikroişlemcisi üzerinden çevirici dili (assembly language) programlamayı öğretmek amacıyla hazırlanmıştır. Kitap, bilgisayar mühendisliği ve elektrik-elektronik mühendisliği öğrencilerine yönelik olup mikroişlemci mimarisi, sayı sistemleri, komut kümesi ve sistem programlama konularını kapsamaktadır.
+**Yazarlar:** Sadi Cagatay Ozturk ve Prof. Dr. Oguz Ergin
 
-## İçindekiler
+**GitHub Pages:** https://prof-oguzergin.github.io/mikroislemciler/
 
-| Bölüm | Konu |
+## Kitap Hakkinda
+
+Bu kitap, Intel 8086 mikroislemcisi uzerinden cevirici dili (assembly language) programlamayi ogretmek amaciyla hazirlanmistir. Kitap, bilgisayar muhendisligi ve elektrik-elektronik muhendisligi ogrencilerine yonelik olup mikroislemci mimarisi, sayi sistemleri, komut kumesi ve sistem programlama konularini kapsamaktadir.
+
+## Icindekiler
+
+| Bolum | Konu |
 |-------|------|
-| 1 | Bilgisayar Sistemlerine Giriş |
-| 2 | Sayı Sistemleri |
+| 1 | Bilgisayar Sistemlerine Giris |
+| 2 | Sayi Sistemleri |
 | 3 | 8086 Mimarisi |
-| 4 | Çevirici Diline Giriş |
-| 5 | Veri Taşıma Komutları |
-| 6 | Aritmetik ve Mantık Komutları |
-| 7 | Denetim Komutları |
-| 8 | Dizgi İşleme Komutları |
-| 9 | Kesmeler ve Çevre Birimlerinin Kullanımı |
-| 10 | Girdi/Çıktı İşlemleri |
-| 11 | Basit Bir İşletim Sistemi |
-| Ek A | x86 Komutlarının Listesi |
-| Ek B | Derleme Araçları (FASM/NASM) |
+| 4 | Cevirici Diline Giris |
+| 5 | Veri Tasima Komutlari |
+| 6 | Aritmetik ve Mantik Komutlari |
+| 7 | Denetim Komutlari |
+| 8 | Dizgi Isleme Komutlari |
+| 9 | Kesmeler ve Cevre Birimlerinin Kullanimi |
+| 10 | Girdi/Cikti Islemleri |
+| 11 | Basit Bir Isletim Sistemi |
+| Ek A | x86 Komutlarinin Listesi |
+| Ek B | Derleme Araclari (FASM/NASM) |
 | Ek C | DOS ve Linux Kesmeleri |
 | Ek D | BIOS Kesmeleri |
-| Ek E | ASCII Kodları ve Klavye Tarama Kodları |
+| Ek E | ASCII Kodlari ve Klavye Tarama Kodlari |
 
 ## PDF
 
-Kitabın güncel PDF sürümüne bu depodaki [ana-kitap.pdf](ana-kitap.pdf) dosyasından erişebilirsiniz.
+Kitabin guncel alfa surmune bu depodaki [ana-kitap.pdf](ana-kitap.pdf) dosyasindan erisebilirsiniz.
+
+Releases uzerinden indirmek icin: https://github.com/prof-oguzergin/mikroislemciler/releases/latest
 
 ## Lisans
 
-Tüm hakları saklıdır. © 2009 Şadi Çağatay Öztürk ve Prof. Dr. Oğuz Ergin
+Bu eser **Creative Commons Atif-GayriTicari-Tureyemez 4.0 Uluslararasi (CC BY-NC-ND 4.0)** lisansi ile lisanslanmistir. Ozgurce paylasilabilir ve dagitilabilir; uygun atif yapilmasi, ticari amacla kullanilmamasi ve degisiklik yapilmamasi gereklidir.
+
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+
+**ISBN:** Basvuru surecinde
+
+**Iletisim:** oergin@sharjah.ac.ae
