@@ -10,7 +10,7 @@
 
 ## Kitap Hakkında
 
-Bu kitap, Intel 8086 mikroişlemcisi üzerinden çevirici dili (assembly language) programlamayı öğretmek amacıyla hazırlanmıştır. Kitap, bilgisayar mühendisliği ve elektrik-elektronik mühendisliği öğrencilerine yönelik olup mikroişlemci mimarisi, sayı sistemleri, komut kümesi ve sistem programlama konularını kapsamaktadır.
+Bu kitap, Intel 8086 mikroişlemcisi üzerinden çevirici dili (assembly language) programlamayı öğretmek amacıyla hazırlanmıştır. Kitap, bilgisayar mühendisliği ve elektrik-elektronik mühendisliği öğrencilerine yönelik olup mikroişlemci mimarisi, sayı sistemleri, buyruk kümesi ve sistem programlama konularını kapsamaktadır.
 
 ## İçindekiler
 
@@ -20,14 +20,14 @@ Bu kitap, Intel 8086 mikroişlemcisi üzerinden çevirici dili (assembly languag
 | 2 | Sayı Sistemleri |
 | 3 | 8086 Mimarisi |
 | 4 | Çevirici Diline Giriş |
-| 5 | Veri Taşıma Komutları |
-| 6 | Aritmetik ve Mantık Komutları |
-| 7 | Denetim Komutları |
-| 8 | Dizgi İşleme Komutları |
+| 5 | Veri Taşıma Buyrukları |
+| 6 | Aritmetik ve Mantık Buyrukları |
+| 7 | Denetim Buyrukları |
+| 8 | Dizgi İşleme Buyrukları |
 | 9 | Kesmeler ve Çevre Birimlerinin Kullanımı |
 | 10 | Girdi/Çıktı İşlemleri |
 | 11 | Basit Bir İşletim Sistemi |
-| Ek A | x86 Komutlarının Listesi |
+| Ek A | x86 Buyruklarının Listesi |
 | Ek B | Derleme Araçları (FASM/NASM) |
 | Ek C | DOS ve Linux Kesmeleri |
 | Ek D | BIOS Kesmeleri |
