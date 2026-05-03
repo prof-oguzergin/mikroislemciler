@@ -1,8 +1,8 @@
 # Intel 8086 ile Mikroişlemci Programlamaya Giriş
 
-**Sürüm 0.0.1 (Alfa) — 2026**
+**Sürüm 0.0.1 — 2026**
 
-> ⚠️ **UYARI: Bu kitap alfa sürümündedir.** Ders kitabı olarak kullanıma uygun değildir. İçerik değişime açıktır. Geri bildirim için: oergin@sharjah.ac.ae
+> ℹ️ **Bilgi:** Bu kitap yeni hazırlanmış olup içerik düzenli olarak güncellenmektedir. Yorum ve önerileriniz için: oergin@sharjah.ac.ae
 
 **Yazarlar:** Şadi Çağatay Öztürk ve Prof. Dr. Oğuz Ergin
 
@@ -35,7 +35,7 @@ Bu kitap, Intel 8086 mikroişlemcisi üzerinden çevirici dili (assembly languag
 
 ## PDF
 
-Kitabın güncel alfa sürümüne bu depodaki [ana-kitap.pdf](ana-kitap.pdf) dosyasından erişebilirsiniz.
+Kitabın güncel sürümüne bu depodaki [ana-kitap.pdf](ana-kitap.pdf) dosyasından erişebilirsiniz.
 
 Sürüm notlarıyla birlikte indirmek için: https://github.com/prof-oguzergin/mikroislemciler/releases/latest
 
