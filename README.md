@@ -45,6 +45,6 @@ Bu eser **Creative Commons Atıf-GayriTicari-Türetilemez 4.0 Uluslararası (CC 
 
 https://creativecommons.org/licenses/by-nc-nd/4.0/deed.tr
 
-**ISBN:** Başvuru sürecinde
+**ISBN:** 978-625-00-5838-1
 
 **İletişim:** oergin@sharjah.ac.ae
