@@ -4,7 +4,7 @@
 
 > ℹ️ **Bilgi:** Bu kitap yeni hazırlanmış olup içerik düzenli olarak güncellenmektedir. Yorum ve önerileriniz için: oergin@sharjah.ac.ae
 
-**Yazarlar:** Prof. Dr. Oğuz Ergin ve Şadi Çağatay Öztürk
+**Yazarlar:** Oğuz Ergin ve Şadi Çağatay Öztürk
 
 **GitHub Pages:** https://prof-oguzergin.github.io/mikroislemciler/
 
